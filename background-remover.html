@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Background Remover - ConvertHub</title>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#f4f7fb;
+margin:0;
+padding:40px;
+text-align:center;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+background:#fff;
+padding:30px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,.15);
+}
+
+button{
+padding:12px 25px;
+background:#2563eb;
+color:#fff;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-size:16px;
+}
+
+img{
+max-width:100%;
+margin-top:20px;
+border-radius:10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Background Remover</h1>
+
+<p>Select an image.</p>
+
+<input type="file" id="imageInput" accept="image/*">
+
+<br><br>
+
+<button onclick="showImage()">Upload Image</button>
+
+<div id="preview"></div>
+
+</div>
+
+<script>
+
+function showImage(){
+
+const file=document.getElementById("imageInput").files[0];
+
+if(!file){
+alert("Please select an image.");
+return;
+}
+
+const reader=new FileReader();
+
+reader.onload=function(e){
+
+document.getElementById("preview").innerHTML=
+'<img src="'+e.target.result+'"><p><b>Demo Version:</b> AI Background Removal will be added soon.</p>';
+
+};
+
+reader.readAsDataURL(file);
+
+}
+
+</script>
+
+</body>
+</html>
