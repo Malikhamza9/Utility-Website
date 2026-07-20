@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Compressor - ConvertHub</title>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#f4f7fb;
+margin:0;
+padding:40px;
+text-align:center;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+background:#fff;
+padding:30px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,.15);
+}
+
+input{
+margin:15px;
+}
+
+button{
+padding:12px 25px;
+background:#2563eb;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-size:16px;
+}
+
+button:hover{
+background:#1d4ed8;
+}
+
+img{
+max-width:100%;
+margin-top:20px;
+border-radius:10px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h1>Image Compressor</h1>
+
+<p>Select an image and compress it.</p>
+
+<input type="file" id="imageInput" accept="image/*">
+
+<br>
+
+<button onclick="compressImage()">Compress Image</button>
+
+<div id="output"></div>
+
+</div>
+
+<script>
+
+function compressImage(){
+
+const file=document.getElementById("imageInput").files[0];
+
+if(!file){
+alert("Please select an image.");
+return;
+}
+
+const reader=new FileReader();
+
+reader.onload=function(e){
+
+const img=new Image();
+
+img.onload=function(){
+
+const canvas=document.createElement("canvas");
+const ctx=canvas.getContext("2d");
+
+canvas.width=img.width;
+canvas.height=img.height;
+
+ctx.drawImage(img,0,0);
+
+const compressed=canvas.toDataURL("image/jpeg",0.5);
+
+document.getElementById("output").innerHTML=
+'<br><a href="'+compressed+'" download="compressed-image.jpg"><button>Download Compressed Image</button></a>';
+
+};
+
+img.src=e.target.result;
+
+};
+
+reader.readAsDataURL(file);
+
+}
+
+</script>
+
+</body>
+</html>
