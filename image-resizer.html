@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Resizer - ConvertHub</title>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#f4f7fb;
+margin:0;
+padding:40px;
+text-align:center;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+background:#fff;
+padding:30px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,.15);
+}
+
+input{
+margin:10px;
+}
+
+button{
+padding:12px 25px;
+margin-top:20px;
+cursor:pointer;
+}
+
+canvas{
+max-width:100%;
+margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Image Resizer</h1>
+
+<input type="file" id="imageInput" accept="image/*"><br>
+
+<input type="number" id="width" placeholder="Width">
+<input type="number" id="height" placeholder="Height"><br>
+
+<button onclick="resizeImage()">Resize Image</button>
+
+<div id="output"></div>
+
+</div>
+
+<script>
+function resizeImage(){
+
+const file=document.getElementById("imageInput").files[0];
+if(!file){
+alert("Select an image");
+return;
+}
+
+const reader=new FileReader();
+
+reader.onload=function(e){
+
+const img=new Image();
+
+img.onload=function(){
+
+const w=document.getElementById("width").value||img.width;
+const h=document.getElementById("height").value||img.height;
+
+const canvas=document.createElement("canvas");
+canvas.width=w;
+canvas.height=h;
+
+const ctx=canvas.getContext("2d");
+ctx.drawImage(img,0,0,w,h);
+
+document.getElementById("output").innerHTML=
+'<a href="'+canvas.toDataURL('image/png')+'" download="resized-image.png"><button>Download Image</button></a>';
+
+};
+
+img.src=e.target.result;
+
+};
+
+reader.readAsDataURL(file);
+
+}
+</script>
+
+</body>
+</html>
