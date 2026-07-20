@@ -34,9 +34,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         btn.addEventListener("click",function(e){
 
-            e.preventDefault();
+            
 
-            alert("🚀 یہ Tool ابھی Development میں ہے۔ جلد ہی Available ہوگا!");
+            
 
         });
 
